@@ -4,10 +4,10 @@ import io
 
 app = FastAPI()
 
+@app.get("/")
 @app.get("/api/generate")
 def generate_qr(text: str = "https://github.com"):
     try:
-        # Generar la imagen del código QR
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_M,
@@ -19,12 +19,10 @@ def generate_qr(text: str = "https://github.com"):
 
         img = qr.make_image(fill_color="black", back_color="white")
 
-        # Guardar la imagen en un buffer de memoria en bytes
         buffered = io.BytesIO()
         img.save(buffered, format="PNG")
         img_bytes = buffered.getvalue()
 
-        # Devolver la imagen PNG directamente
         return Response(content=img_bytes, media_type="image/png")
 
     except Exception as e:
