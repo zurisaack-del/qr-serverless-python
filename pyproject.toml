@@ -1,2 +1,1 @@
-[tool.vercel]
-entrypoint = "api.generate:app"
+entrypoint = "api.generate:handler"
